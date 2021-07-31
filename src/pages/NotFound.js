@@ -8,7 +8,7 @@ import {
 const NotFound = () => (
   <>
     <Helmet>
-      <title>404 | Material Kit</title>
+      <title>404</title>
     </Helmet>
     <Box
       sx={{
@@ -25,15 +25,14 @@ const NotFound = () => (
           color="textPrimary"
           variant="h1"
         >
-          404: The page you are looking for isn’t here
+          404: Stranica koju ste tražili ne postoji
         </Typography>
         <Typography
           align="center"
           color="textPrimary"
           variant="subtitle2"
         >
-          You either tried some shady route or you came here by mistake.
-          Whichever it is, try using the navigation
+          Koristite se navigacijskom trakom.
         </Typography>
         <Box sx={{ textAlign: 'center' }}>
           <img

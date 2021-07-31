@@ -20,7 +20,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Login | Material Kit</title>
+        <title>Prijava</title>
       </Helmet>
       <Box
         sx={{
@@ -34,12 +34,12 @@ const Login = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
+              email: '',
+              password: ''
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
+              email: Yup.string().email('E-pošta nije valjana').max(255).required('E-pošta nije unesena'),
+              password: Yup.string().max(255).required('Lozinka nije unesena')
             })}
             onSubmit={() => {
               navigate('/app/dashboard', { replace: true });
@@ -60,14 +60,14 @@ const Login = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Sign in
+                    Prijava
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
                     variant="body2"
                   >
-                    Sign in on the internal platform
+                    Prijavi se sa jednom od ovih platformi
                   </Typography>
                 </Box>
                 <Grid
@@ -87,7 +87,7 @@ const Login = () => {
                       size="large"
                       variant="contained"
                     >
-                      Login with Facebook
+                      Facebook
                     </Button>
                   </Grid>
                   <Grid
@@ -102,7 +102,7 @@ const Login = () => {
                       size="large"
                       variant="contained"
                     >
-                      Login with Google
+                      Google
                     </Button>
                   </Grid>
                 </Grid>
@@ -117,14 +117,14 @@ const Login = () => {
                     color="textSecondary"
                     variant="body1"
                   >
-                    or login with email address
+                    ili se prijavi sa e-poštom
                   </Typography>
                 </Box>
                 <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Email Address"
+                  label="E-pošta"
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
@@ -137,7 +137,7 @@ const Login = () => {
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
-                  label="Password"
+                  label="Lozinka"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
@@ -155,21 +155,21 @@ const Login = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign in now
+                    Prijavi se
                   </Button>
                 </Box>
                 <Typography
                   color="textSecondary"
                   variant="body1"
                 >
-                  Don&apos;t have an account?
+                  Nemaš korisnički račun?
                   {' '}
                   <Link
                     component={RouterLink}
                     to="/register"
                     variant="h6"
                   >
-                    Sign up
+                    Registriraj se
                   </Link>
                 </Typography>
               </form>

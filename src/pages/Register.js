@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import {
   Box,
   Button,
-  Checkbox,
+  // Checkbox,
   Container,
   FormHelperText,
   Link,
@@ -19,7 +19,7 @@ const Register = () => {
   return (
     <>
       <Helmet>
-        <title>Register | Material Kit</title>
+        <title>Registracija</title>
       </Helmet>
       <Box
         sx={{
@@ -37,15 +37,15 @@ const Register = () => {
               firstName: '',
               lastName: '',
               password: '',
-              policy: false
+              // policy: false
             }}
             validationSchema={
               Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
-                lastName: Yup.string().max(255).required('Last name is required'),
-                password: Yup.string().max(255).required('password is required'),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
+                email: Yup.string().email('E-pošta nije valajana').max(255).required('E-pošta nije unesena'),
+                firstName: Yup.string().max(255).required('Ime nije uneseno'),
+                lastName: Yup.string().max(255).required('Prezime nije uneseno'),
+                password: Yup.string().max(255).required('Lozinka nije unesena')
+                // policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
             onSubmit={() => {
@@ -67,21 +67,21 @@ const Register = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Create new account
+                    Registracija
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
                     variant="body2"
                   >
-                    Use your email to create new account
+                    Registriraj se svojom e-poštom
                   </Typography>
                 </Box>
                 <TextField
                   error={Boolean(touched.firstName && errors.firstName)}
                   fullWidth
                   helperText={touched.firstName && errors.firstName}
-                  label="First name"
+                  label="Ime"
                   margin="normal"
                   name="firstName"
                   onBlur={handleBlur}
@@ -93,7 +93,7 @@ const Register = () => {
                   error={Boolean(touched.lastName && errors.lastName)}
                   fullWidth
                   helperText={touched.lastName && errors.lastName}
-                  label="Last name"
+                  label="Prezime"
                   margin="normal"
                   name="lastName"
                   onBlur={handleBlur}
@@ -105,7 +105,7 @@ const Register = () => {
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Email Address"
+                  label="E-pošta"
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
@@ -118,7 +118,7 @@ const Register = () => {
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
-                  label="Password"
+                  label="Lozinka"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
@@ -127,7 +127,7 @@ const Register = () => {
                   value={values.password}
                   variant="outlined"
                 />
-                <Box
+                {/* <Box
                   sx={{
                     alignItems: 'center',
                     display: 'flex',
@@ -155,7 +155,7 @@ const Register = () => {
                       Terms and Conditions
                     </Link>
                   </Typography>
-                </Box>
+                </Box> */}
                 {Boolean(touched.policy && errors.policy) && (
                   <FormHelperText error>
                     {errors.policy}
@@ -170,21 +170,21 @@ const Register = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign up now
+                    Registriraj se
                   </Button>
                 </Box>
                 <Typography
                   color="textSecondary"
                   variant="body1"
                 >
-                  Have an account?
+                  Već imaš račun?
                   {' '}
                   <Link
                     component={RouterLink}
                     to="/login"
                     variant="h6"
                   >
-                    Sign in
+                    Prijavi se
                   </Link>
                 </Typography>
               </form>
