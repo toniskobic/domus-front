@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+/* eslint-disable no-unused-vars */
+import { useState, useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { experimentalStyled } from '@material-ui/core';
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
@@ -39,14 +41,35 @@ const DashboardLayoutContent = experimentalStyled('div')({
 });
 
 const DashboardLayout = () => {
+  const navigate = useNavigate();
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    setUsername(localStorage.getItem('username') ? localStorage.getItem('username') : '');
+    setName(localStorage.getItem('firstname') ? localStorage.getItem('firstname').concat(' ', localStorage.getItem('lastname')) : '');
+  }, []);
+
+  const logout = () => {
+    setUsername('');
+    setName('');
+    localStorage.removeItem('firstname');
+    localStorage.removeItem('lastname');
+    localStorage.removeItem('username');
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
+    navigate('/login', { replace: true });
+  };
 
   return (
     <DashboardLayoutRoot>
-      <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} />
+      <DashboardNavbar logout={logout} onMobileNavOpen={() => setMobileNavOpen(true)} />
       <DashboardSidebar
         onMobileClose={() => setMobileNavOpen(false)}
         openMobile={isMobileNavOpen}
+        username={username}
+        name={name}
       />
       <DashboardLayoutWrapper>
         <DashboardLayoutContainer>

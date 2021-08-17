@@ -6,11 +6,13 @@ import {
   Hidden,
   IconButton,
   Toolbar,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import InputIcon from '@material-ui/icons/Input';
 
-const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => (
+// eslint-disable-next-line react/prop-types
+const DashboardNavbar = ({ onMobileNavOpen, logout, ...rest }) => (
   <AppBar elevation={0} {...rest}>
     <Toolbar>
       <RouterLink to="/">
@@ -19,6 +21,9 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => (
         </Typography>
       </RouterLink>
       <Box sx={{ flexGrow: 1 }} />
+      <IconButton color="inherit" onClick={logout}>
+        <InputIcon />
+      </IconButton>
       <Hidden lgUp>
         <IconButton color="inherit" onClick={onMobileNavOpen}>
           <MenuIcon />

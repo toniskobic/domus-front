@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Avatar,
+  // Avatar,
   Box,
   // Button,
   Divider,
@@ -20,17 +21,11 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
-};
-
 const items = [
   {
-    href: '/app/dashboard',
+    href: '/app/events',
     icon: BarChartIcon,
-    title: 'Početna'
+    title: 'Događaji'
   },
   {
     href: '/app/account',
@@ -51,10 +46,13 @@ const items = [
     href: '/register',
     icon: UserPlusIcon,
     title: 'Registracija'
-  },
+  }
 ];
 
-const DashboardSidebar = ({ onMobileClose, openMobile }) => {
+// eslint-disable-next-line react/prop-types
+const DashboardSidebar = ({
+  onMobileClose, openMobile, name, username
+}) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -79,27 +77,11 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           p: 2
         }}
       >
-        <Avatar
-          component={RouterLink}
-          src={user.avatar}
-          sx={{
-            cursor: 'pointer',
-            width: 64,
-            height: 64
-          }}
-          to="/app/account"
-        />
-        <Typography
-          color="textPrimary"
-          variant="h5"
-        >
-          {user.name}
+        <Typography color="textPrimary" variant="h5">
+          {username}
         </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
+        <Typography color="textSecondary" variant="body2">
+          {name}
         </Typography>
       </Box>
       <Divider />

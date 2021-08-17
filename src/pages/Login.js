@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
@@ -13,6 +14,7 @@ import {
 } from '@material-ui/core';
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
+import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,15 +36,27 @@ const Login = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: '',
+              username: '',
               password: ''
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('E-pošta nije valjana').max(255).required('E-pošta nije unesena'),
+              username: Yup.string().max(255).required('Korisničko ime nije uneseno'),
               password: Yup.string().max(255).required('Lozinka nije unesena')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={({ username, password }) => {
+              const user = { username, password };
+              const response = axios
+                .post('http://localhost:5000/api/authenticate/login', user)
+                .then((text) => {
+                  localStorage.setItem('id', text.data.id);
+                  localStorage.setItem('dormitoryId', text.data.dormitoryId);
+                  localStorage.setItem('firstname', text.data.firstname);
+                  localStorage.setItem('lastname', text.data.lastname);
+                  localStorage.setItem('username', text.data.username);
+                  localStorage.setItem('token', text.data.token);
+                  localStorage.setItem('expiration', text.data.expiration);
+                  navigate('/', { replace: true });
+                });
             }}
           >
             {({
@@ -67,70 +81,20 @@ const Login = () => {
                     gutterBottom
                     variant="body2"
                   >
-                    Prijavi se sa jednom od ovih platformi
-                  </Typography>
-                </Box>
-                <Grid
-                  container
-                  spacing={3}
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      color="primary"
-                      fullWidth
-                      startIcon={<FacebookIcon />}
-                      onClick={handleSubmit}
-                      size="large"
-                      variant="contained"
-                    >
-                      Facebook
-                    </Button>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      fullWidth
-                      startIcon={<GoogleIcon />}
-                      onClick={handleSubmit}
-                      size="large"
-                      variant="contained"
-                    >
-                      Google
-                    </Button>
-                  </Grid>
-                </Grid>
-                <Box
-                  sx={{
-                    pb: 1,
-                    pt: 3
-                  }}
-                >
-                  <Typography
-                    align="center"
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    ili se prijavi sa e-poštom
+                    Prijavi se sa svojim korisničkim imenom
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
+                  error={Boolean(touched.username && errors.username)}
                   fullWidth
-                  helperText={touched.email && errors.email}
-                  label="E-pošta"
+                  helperText={touched.username && errors.username}
+                  label="Korisničko ime"
                   margin="normal"
-                  name="email"
+                  name="username"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  type="email"
-                  value={values.email}
+                  type="text"
+                  value={values.username}
                   variant="outlined"
                 />
                 <TextField

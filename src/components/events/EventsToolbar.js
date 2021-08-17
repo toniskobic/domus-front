@@ -1,3 +1,4 @@
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -9,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 
-const CustomerListToolbar = (props) => (
+const EventsToolbar = (props) => (
   <Box {...props}>
     <Box
       sx={{
@@ -17,18 +18,11 @@ const CustomerListToolbar = (props) => (
         justifyContent: 'flex-end'
       }}
     >
-      <Button>
-        Import
-      </Button>
-      <Button sx={{ mx: 1 }}>
-        Export
-      </Button>
-      <Button
-        color="primary"
-        variant="contained"
-      >
-        Add customer
-      </Button>
+      <RouterLink to="new">
+        <Button color="primary" variant="contained">
+          Novi događaj
+        </Button>
+      </RouterLink>
     </Box>
     <Box sx={{ mt: 3 }}>
       <Card>
@@ -39,16 +33,13 @@ const CustomerListToolbar = (props) => (
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SvgIcon
-                      fontSize="small"
-                      color="action"
-                    >
+                    <SvgIcon fontSize="small" color="action">
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
                 )
               }}
-              placeholder="Search customer"
+              placeholder="Pretraži događaje"
               variant="outlined"
             />
           </Box>
@@ -58,4 +49,4 @@ const CustomerListToolbar = (props) => (
   </Box>
 );
 
-export default CustomerListToolbar;
+export default EventsToolbar;

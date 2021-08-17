@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
@@ -5,16 +8,27 @@ import { Formik } from 'formik';
 import {
   Box,
   Button,
-  // Checkbox,
   Container,
   FormHelperText,
   Link,
   TextField,
-  Typography
+  Typography,
+  MenuItem
 } from '@material-ui/core';
 
 const Register = () => {
   const navigate = useNavigate();
+
+  const [dormitories, setDormitories] = useState([]);
+
+  useEffect(() => {
+    const fetchDormitories = async () => {
+      const rsp = await axios.get('http://localhost:5000/api/dormitory');
+      const list = await rsp.data;
+      setDormitories(list);
+    };
+    fetchDormitories();
+  }, []);
 
   return (
     <>
@@ -34,22 +48,41 @@ const Register = () => {
           <Formik
             initialValues={{
               email: '',
-              firstName: '',
-              lastName: '',
+              firstname: '',
+              lastname: '',
+              username: '',
               password: '',
-              // policy: false
+              DormitoryID: ''
             }}
-            validationSchema={
-              Yup.object().shape({
-                email: Yup.string().email('E-pošta nije valajana').max(255).required('E-pošta nije unesena'),
-                firstName: Yup.string().max(255).required('Ime nije uneseno'),
-                lastName: Yup.string().max(255).required('Prezime nije uneseno'),
-                password: Yup.string().max(255).required('Lozinka nije unesena')
-                // policy: Yup.boolean().oneOf([true], 'This field must be checked')
-              })
-            }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            validationSchema={Yup.object().shape({
+              email: Yup.string()
+                .email('E-pošta nije valjana')
+                .max(255)
+                .required('E-pošta nije unesena'),
+              firstname: Yup.string().max(255).required('Ime nije uneseno'),
+              lastname: Yup.string().max(255).required('Prezime nije uneseno'),
+              password: Yup.string().max(255).required('Lozinka nije unesena'),
+              username: Yup.string()
+                .max(255)
+                .required('Korisničko ime nije uneseno'),
+              DormitoryID: Yup.string()
+                .max(255)
+                .required('Studentski dom nije odabran')
+            })}
+            onSubmit={(
+              values
+            ) => {
+              console.log(values);
+              const response = axios
+                .post('http://localhost:5000/api/authenticate/register', values)
+                .then((text) => {
+                  console.log(values);
+                  console.log(text.data);
+                  navigate('/login', { replace: true });
+                }).catch((error) => {
+                  console.log(values);
+                  console.error('There was an error!', values);
+                });
             }}
           >
             {({
@@ -63,10 +96,7 @@ const Register = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
-                  <Typography
-                    color="textPrimary"
-                    variant="h2"
-                  >
+                  <Typography color="textPrimary" variant="h2">
                     Registracija
                   </Typography>
                   <Typography
@@ -78,29 +108,60 @@ const Register = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.firstName && errors.firstName)}
+                  error={Boolean(touched.firstname && errors.firstname)}
                   fullWidth
-                  helperText={touched.firstName && errors.firstName}
+                  helperText={touched.firstname && errors.firstname}
                   label="Ime"
                   margin="normal"
-                  name="firstName"
+                  name="firstname"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.firstName}
+                  value={values.firstname}
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.lastName && errors.lastName)}
+                  error={Boolean(touched.lastname && errors.lastname)}
                   fullWidth
-                  helperText={touched.lastName && errors.lastName}
+                  helperText={touched.lastname && errors.lastname}
                   label="Prezime"
                   margin="normal"
-                  name="lastName"
+                  name="lastname"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.lastName}
+                  value={values.lastname}
                   variant="outlined"
                 />
+                <TextField
+                  error={Boolean(touched.username && errors.username)}
+                  fullWidth
+                  helperText={touched.username && errors.username}
+                  label="Korisničko ime"
+                  margin="normal"
+                  name="username"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.username}
+                  variant="outlined"
+                />
+                <TextField
+                  select
+                  error={Boolean(touched.DormitoryID && errors.DormitoryID)}
+                  fullWidth
+                  helperText={touched.DormitoryID && errors.DormitoryID}
+                  label="Studentski dom"
+                  margin="normal"
+                  name="DormitoryID"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.DormitoryID}
+                  variant="outlined"
+                >
+                  {dormitories.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
                 <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
@@ -127,40 +188,6 @@ const Register = () => {
                   value={values.password}
                   variant="outlined"
                 />
-                {/* <Box
-                  sx={{
-                    alignItems: 'center',
-                    display: 'flex',
-                    ml: -1
-                  }}
-                >
-                  <Checkbox
-                    checked={values.policy}
-                    name="policy"
-                    onChange={handleChange}
-                  />
-                  <Typography
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    I have read the
-                    {' '}
-                    <Link
-                      color="primary"
-                      component={RouterLink}
-                      to="#"
-                      underline="always"
-                      variant="h6"
-                    >
-                      Terms and Conditions
-                    </Link>
-                  </Typography>
-                </Box> */}
-                {Boolean(touched.policy && errors.policy) && (
-                  <FormHelperText error>
-                    {errors.policy}
-                  </FormHelperText>
-                )}
                 <Box sx={{ py: 2 }}>
                   <Button
                     color="primary"
@@ -173,17 +200,10 @@ const Register = () => {
                     Registriraj se
                   </Button>
                 </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
+                <Typography color="textSecondary" variant="body1">
                   Već imaš račun?
                   {' '}
-                  <Link
-                    component={RouterLink}
-                    to="/login"
-                    variant="h6"
-                  >
+                  <Link component={RouterLink} to="/login" variant="h6">
                     Prijavi se
                   </Link>
                 </Typography>
