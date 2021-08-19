@@ -13,40 +13,22 @@ import {
   Typography
 } from '@material-ui/core';
 import {
-  BarChart as BarChartIcon,
-  Lock as LockIcon,
-  Settings as SettingsIcon,
-  User as UserIcon,
-  UserPlus as UserPlusIcon,
+  Calendar as CalendarIcon,
+  BookOpen as BookOpenIcon,
 } from 'react-feather';
 import NavItem from './NavItem';
 
 const items = [
   {
     href: '/app/events',
-    icon: BarChartIcon,
+    icon: CalendarIcon,
     title: 'Događaji'
   },
   {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Korisnički račun'
+    href: '/app/ads',
+    icon: BookOpenIcon,
+    title: 'Oglasi'
   },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Postavke'
-  },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Prijava'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Registracija'
-  }
 ];
 
 // eslint-disable-next-line react/prop-types

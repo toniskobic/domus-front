@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { experimentalStyled } from '@material-ui/core';
 import MainNavbar from './MainNavbar';
 
@@ -31,17 +32,29 @@ const MainLayoutContent = experimentalStyled('div')({
   overflow: 'auto'
 });
 
-const MainLayout = () => (
-  <MainLayoutRoot>
-    <MainNavbar />
-    <MainLayoutWrapper>
-      <MainLayoutContainer>
-        <MainLayoutContent>
-          <Outlet />
-        </MainLayoutContent>
-      </MainLayoutContainer>
-    </MainLayoutWrapper>
-  </MainLayoutRoot>
-);
+const MainLayout = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const expiration = localStorage.getItem('expiration');
+    const future = new Date(expiration);
+    if (expiration != null && Date.now() <= Date.parse(future)) {
+      navigate('/app/events', { replace: true });
+    }
+  }, []);
+
+  return (
+    <MainLayoutRoot>
+      <MainNavbar />
+      <MainLayoutWrapper>
+        <MainLayoutContainer>
+          <MainLayoutContent>
+            <Outlet />
+          </MainLayoutContent>
+        </MainLayoutContainer>
+      </MainLayoutWrapper>
+    </MainLayoutRoot>
+  );
+};
 
 export default MainLayout;

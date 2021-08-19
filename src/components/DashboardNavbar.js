@@ -15,7 +15,7 @@ import InputIcon from '@material-ui/icons/Input';
 const DashboardNavbar = ({ onMobileNavOpen, logout, ...rest }) => (
   <AppBar elevation={0} {...rest}>
     <Toolbar>
-      <RouterLink to="/">
+      <RouterLink to="/app/events">
         <Typography color="#FFFFFF" variant="h2">
           Domus
         </Typography>
@@ -23,6 +23,9 @@ const DashboardNavbar = ({ onMobileNavOpen, logout, ...rest }) => (
       <Box sx={{ flexGrow: 1 }} />
       <IconButton color="inherit" onClick={logout}>
         <InputIcon />
+        <Typography ml="5px">
+          Odjava
+        </Typography>
       </IconButton>
       <Hidden lgUp>
         <IconButton color="inherit" onClick={onMobileNavOpen}>

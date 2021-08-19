@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
@@ -7,17 +8,15 @@ import {
   Box,
   Button,
   Container,
-  Grid,
   Link,
   TextField,
   Typography
 } from '@material-ui/core';
-import FacebookIcon from 'src/icons/Facebook';
-import GoogleIcon from 'src/icons/Google';
 import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState('');
 
   return (
     <>
@@ -43,8 +42,10 @@ const Login = () => {
               username: Yup.string().max(255).required('Korisničko ime nije uneseno'),
               password: Yup.string().max(255).required('Lozinka nije unesena')
             })}
-            onSubmit={({ username, password }) => {
-              const user = { username, password };
+            onSubmit={(values, {
+              resetForm
+            }) => {
+              const user = values;
               const response = axios
                 .post('http://localhost:5000/api/authenticate/login', user)
                 .then((text) => {
@@ -55,7 +56,10 @@ const Login = () => {
                   localStorage.setItem('username', text.data.username);
                   localStorage.setItem('token', text.data.token);
                   localStorage.setItem('expiration', text.data.expiration);
-                  navigate('/', { replace: true });
+                  navigate('/app/events', { replace: true });
+                }).catch((error) => {
+                  setErrorMsg('Pogrešno korisničko ime ili lozinka, pokušajte ponovno.');
+                  resetForm();
                 });
             }}
           >
@@ -70,6 +74,7 @@ const Login = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
+                  { errorMsg ? <Typography color="red" gutterBottom variant="h4">{errorMsg}</Typography> : null}
                   <Typography
                     color="textPrimary"
                     variant="h2"

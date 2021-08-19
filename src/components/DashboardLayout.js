@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { experimentalStyled } from '@material-ui/core';
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
@@ -47,8 +46,25 @@ const DashboardLayout = () => {
   const [name, setName] = useState('');
 
   useEffect(() => {
-    setUsername(localStorage.getItem('username') ? localStorage.getItem('username') : '');
-    setName(localStorage.getItem('firstname') ? localStorage.getItem('firstname').concat(' ', localStorage.getItem('lastname')) : '');
+    if (localStorage.getItem('expiration') == null) {
+      navigate('/home', { replace: true });
+    } else {
+      const future = new Date(localStorage.getItem('expiration'));
+      if (Date.now() > Date.parse(future)) {
+        navigate('/home', { replace: true });
+      }
+    }
+
+    setUsername(
+      localStorage.getItem('username') ? localStorage.getItem('username') : ''
+    );
+    setName(
+      localStorage.getItem('firstname')
+        ? localStorage
+          .getItem('firstname')
+          .concat(' ', localStorage.getItem('lastname'))
+        : ''
+    );
   }, []);
 
   const logout = () => {
@@ -59,7 +75,7 @@ const DashboardLayout = () => {
     localStorage.removeItem('username');
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
-    navigate('/login', { replace: true });
+    navigate('/home', { replace: true });
   };
 
   return (

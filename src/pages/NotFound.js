@@ -32,7 +32,7 @@ const NotFound = () => (
           color="textPrimary"
           variant="subtitle2"
         >
-          Koristite se navigacijskom trakom.
+          Koristite se navigacijskom trakom ili pritisnite ikonu u gornjem lijevom kutu.
         </Typography>
         <Box sx={{ textAlign: 'center' }}>
           <img

@@ -9,8 +9,8 @@ import {
   MenuItem
 } from '@material-ui/core';
 
-const EventsToolbar = ({
-  input, onChange, eventTypeList, ...props
+const AdsToolbar = ({
+  input, onChange, adTypeList, ...props
 }) => (
   <Box {...props}>
     <Box
@@ -21,7 +21,7 @@ const EventsToolbar = ({
     >
       <RouterLink to="new">
         <Button color="primary" variant="contained">
-          Novi događaj
+          Novi oglas
         </Button>
       </RouterLink>
     </Box>
@@ -32,7 +32,7 @@ const EventsToolbar = ({
             <TextField
               select
               fullWidth
-              label="Tip događaja"
+              label="Tip oglasa"
               margin="normal"
               variant="outlined"
               value={input}
@@ -41,7 +41,7 @@ const EventsToolbar = ({
               <MenuItem key={0} value={0}>
                 Svi
               </MenuItem>
-              {eventTypeList.map((option) => (
+              {adTypeList.map((option) => (
                 <MenuItem key={option.id} value={option.id}>
                   {option.name}
                 </MenuItem>
@@ -54,10 +54,10 @@ const EventsToolbar = ({
   </Box>
 );
 
-EventsToolbar.propTypes = {
+AdsToolbar.propTypes = {
   input: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
-  eventTypeList: PropTypes.array.isRequired
+  adTypeList: PropTypes.array.isRequired
 };
 
-export default EventsToolbar;
+export default AdsToolbar;
