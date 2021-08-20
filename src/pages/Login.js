@@ -16,12 +16,13 @@ import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
+
   const [errorMsg, setErrorMsg] = useState('');
 
   return (
     <>
       <Helmet>
-        <title>Prijava</title>
+        <title>Domus | Prijava</title>
       </Helmet>
       <Box
         sx={{
@@ -39,12 +40,12 @@ const Login = () => {
               password: ''
             }}
             validationSchema={Yup.object().shape({
-              username: Yup.string().max(255).required('Korisničko ime nije uneseno'),
+              username: Yup.string()
+                .max(255)
+                .required('Korisničko ime nije uneseno'),
               password: Yup.string().max(255).required('Lozinka nije unesena')
             })}
-            onSubmit={(values, {
-              resetForm
-            }) => {
+            onSubmit={(values, { resetForm }) => {
               const user = values;
               const response = axios
                 .post('http://localhost:5000/api/authenticate/login', user)
@@ -57,8 +58,11 @@ const Login = () => {
                   localStorage.setItem('token', text.data.token);
                   localStorage.setItem('expiration', text.data.expiration);
                   navigate('/app/events', { replace: true });
-                }).catch((error) => {
-                  setErrorMsg('Pogrešno korisničko ime ili lozinka, pokušajte ponovno.');
+                })
+                .catch((error) => {
+                  setErrorMsg(
+                    'Pogrešno korisničko ime ili lozinka, pokušajte ponovno.'
+                  );
                   resetForm();
                 });
             }}
@@ -73,12 +77,29 @@ const Login = () => {
               values
             }) => (
               <form onSubmit={handleSubmit}>
+                <Typography color="textPrimary" variant="h4">
+                  Administrator:
+                </Typography>
+                <Typography color="textSecondary" variant="h4">
+                  korisničko ime: ***REMOVED***
+                  <br />
+                  lozinka: ***REMOVED***
+                </Typography>
+                <Typography color="textPrimary" variant="h4">
+                  Korisnik:
+                </Typography>
+                <Typography color="textSecondary" variant="h4">
+                  korisničko ime: ***REMOVED***
+                  <br />
+                  lozinka: ***REMOVED***
+                </Typography>
                 <Box sx={{ mb: 3 }}>
-                  { errorMsg ? <Typography color="red" gutterBottom variant="h4">{errorMsg}</Typography> : null}
-                  <Typography
-                    color="textPrimary"
-                    variant="h2"
-                  >
+                  {errorMsg ? (
+                    <Typography color="red" gutterBottom variant="h4">
+                      {errorMsg}
+                    </Typography>
+                  ) : null}
+                  <Typography color="textPrimary" variant="h2">
                     Prijava
                   </Typography>
                   <Typography
@@ -127,17 +148,10 @@ const Login = () => {
                     Prijavi se
                   </Button>
                 </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
+                <Typography color="textSecondary" variant="body1">
                   Nemaš korisnički račun?
                   {' '}
-                  <Link
-                    component={RouterLink}
-                    to="/register"
-                    variant="h6"
-                  >
+                  <Link component={RouterLink} to="/register" variant="h6">
                     Registriraj se
                   </Link>
                 </Typography>

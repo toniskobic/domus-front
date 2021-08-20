@@ -20,6 +20,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [dormitories, setDormitories] = useState([]);
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     const fetchDormitories = async () => {
@@ -33,7 +34,7 @@ const Register = () => {
   return (
     <>
       <Helmet>
-        <title>Registracija</title>
+        <title>Domus | Registracija</title>
       </Helmet>
       <Box
         sx={{
@@ -70,7 +71,7 @@ const Register = () => {
                 .required('Studentski dom nije odabran')
             })}
             onSubmit={(
-              values
+              values, { resetForm }
             ) => {
               console.log(values);
               const response = axios
@@ -80,8 +81,8 @@ const Register = () => {
                   console.log(text.data);
                   navigate('/login', { replace: true });
                 }).catch((error) => {
-                  console.log(values);
-                  console.error('There was an error!', values);
+                  setErrorMsg('Dogodila se greška kod registracije, pokušajte opet.');
+                  resetForm();
                 });
             }}
           >
@@ -96,6 +97,7 @@ const Register = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
+                  { errorMsg ? <Typography color="red" gutterBottom variant="h4">{errorMsg}</Typography> : null}
                   <Typography color="textPrimary" variant="h2">
                     Registracija
                   </Typography>
