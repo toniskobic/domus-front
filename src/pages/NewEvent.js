@@ -28,7 +28,7 @@ const NewEvent = () => {
       };
 
       const rsp = await axios.get(
-        'http://***REMOVED***/domus/api/eventType',
+        'https://***REMOVED***/domus/api/eventType',
         config
       );
 
@@ -103,7 +103,7 @@ const NewEvent = () => {
               data.dormitoryId = localStorage.getItem('dormitoryId');
 
               const response = axios
-                .post('http://***REMOVED***/domus/api/event', data, config)
+                .post('https://***REMOVED***/domus/api/event', data, config)
                 .then((text) => {
                   navigate('/app/events', { replace: true });
                 })

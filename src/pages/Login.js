@@ -47,7 +47,7 @@ const Login = () => {
             onSubmit={(values, { resetForm }) => {
               const user = values;
               const response = axios
-                .post('http://***REMOVED***/domus/api/authenticate/login', user)
+                .post('https://***REMOVED***/domus/api/authenticate/login', user)
                 .then((text) => {
                   localStorage.setItem('id', text.data.id);
                   localStorage.setItem('dormitoryId', text.data.dormitoryId);

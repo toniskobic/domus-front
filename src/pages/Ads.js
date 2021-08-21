@@ -34,12 +34,12 @@ const Ads = () => {
       };
 
       const rspAds = await axios.get(
-        'http://***REMOVED***/domus/api/ad',
+        'https://***REMOVED***/domus/api/ad',
         config
       );
 
       const rspAdTypes = await axios.get(
-        'http://***REMOVED***/domus/api/adType',
+        'https://***REMOVED***/domus/api/adType',
         config
       );
 
