@@ -36,12 +36,12 @@ const Events = (props) => {
       };
 
       const rspEvents = await axios.get(
-        'https://***REMOVED***/domus/api/event',
+        'http://***REMOVED***/domus/api/event',
         config
       );
 
       const rspEventTypes = await axios.get(
-        'https://***REMOVED***/domus/api/eventType',
+        'http://***REMOVED***/domus/api/eventType',
         config
       );
 
