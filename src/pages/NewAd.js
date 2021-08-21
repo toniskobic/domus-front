@@ -28,7 +28,7 @@ const NewAd = () => {
       };
 
       const rsp = await axios.get(
-        'http://localhost:5000/api/adType',
+        'http://***REMOVED***/domus/api/adType',
         config
       );
 
@@ -78,7 +78,7 @@ const NewAd = () => {
               data.userId = localStorage.getItem('id');
 
               const response = axios
-                .post('http://localhost:5000/api/ad', data, config)
+                .post('http://***REMOVED***/domus/api/ad', data, config)
                 .then((text) => {
                   navigate('/app/ads', { replace: true });
                 })

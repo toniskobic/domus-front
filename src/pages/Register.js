@@ -24,7 +24,7 @@ const Register = () => {
 
   useEffect(() => {
     const fetchDormitories = async () => {
-      const rsp = await axios.get('http://localhost:5000/api/dormitory');
+      const rsp = await axios.get('http://***REMOVED***/domus/api/dormitory');
       const list = await rsp.data;
       setDormitories(list);
     };
@@ -75,7 +75,7 @@ const Register = () => {
             ) => {
               console.log(values);
               const response = axios
-                .post('http://localhost:5000/api/authenticate/register', values)
+                .post('http://***REMOVED***/domus/api/authenticate/register', values)
                 .then((text) => {
                   console.log(values);
                   console.log(text.data);
