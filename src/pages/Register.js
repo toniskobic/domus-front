@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
+import https from 'https';
 import { Formik } from 'formik';
 import {
   Box,
@@ -24,7 +25,8 @@ const Register = () => {
 
   useEffect(() => {
     const fetchDormitories = async () => {
-      const rsp = await axios.get('https://***REMOVED***/domus/api/dormitory');
+      const agent = new https.Agent({ rejectUnauthorized: false });
+      const rsp = await axios.get('https://***REMOVED***/domus/api/dormitory', agent);
       const list = await rsp.data;
       setDormitories(list);
     };
