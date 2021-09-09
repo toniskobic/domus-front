@@ -1,9 +1,5 @@
 import { Helmet } from 'react-helmet';
-import {
-  Box,
-  Container,
-  Typography
-} from '@material-ui/core';
+import { Box, Container, Typography } from '@material-ui/core';
 
 const NotFound = () => (
   <>
@@ -20,19 +16,12 @@ const NotFound = () => (
       }}
     >
       <Container maxWidth="md">
-        <Typography
-          align="center"
-          color="textPrimary"
-          variant="h1"
-        >
+        <Typography align="center" color="textPrimary" variant="h1">
           404: Stranica koju ste tražili ne postoji
         </Typography>
-        <Typography
-          align="center"
-          color="textPrimary"
-          variant="subtitle2"
-        >
-          Koristite se navigacijskom trakom ili pritisnite ikonu u gornjem lijevom kutu.
+        <Typography align="center" color="textPrimary" variant="subtitle2">
+          Koristite se navigacijskom trakom ili pritisnite ikonu u gornjem
+          lijevom kutu.
         </Typography>
         <Box sx={{ textAlign: 'center' }}>
           <img

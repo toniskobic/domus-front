@@ -9,10 +9,22 @@ import {
   MenuItem
 } from '@material-ui/core';
 
-const AdsToolbar = ({
+const MyAdsToolbar = ({
   input, onChange, adTypeList, ...props
 }) => (
   <Box {...props}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'flex-end'
+      }}
+    >
+      <RouterLink to="new">
+        <Button color="primary" variant="contained">
+          Novi oglas
+        </Button>
+      </RouterLink>
+    </Box>
     <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
@@ -42,10 +54,10 @@ const AdsToolbar = ({
   </Box>
 );
 
-AdsToolbar.propTypes = {
+MyAdsToolbar.propTypes = {
   input: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   adTypeList: PropTypes.array.isRequired
 };
 
-export default AdsToolbar;
+export default MyAdsToolbar;

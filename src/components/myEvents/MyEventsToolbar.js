@@ -1,14 +1,32 @@
+import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import appContext from 'src/store/app_context';
+import { useContext } from 'react';
 
 import {
   Box,
+  Button,
   Card,
   CardContent,
   TextField,
   MenuItem
 } from '@material-ui/core';
 
-const EventsToolbar = ({ input, onChange, eventTypeList, ...props }) => {
+const MyEventsToolbar = ({ input, onChange, eventTypeList, ...props }) => {
+  // const { state, dispatchStore } = useContext(appContext);
+
+  // const filterEvents = () => {
+  //   const filteredEvents = state.events.filter(
+  //     (el) =>
+  //       (el.dormitoryId == localStorage.getItem('dormitoryId')) &
+  //       (el.userId === localStorage.getItem('id'))
+  //   );
+
+  //   dispatchStore({
+  //     type: 'FILTER_EVENTS',
+  //     payload: {filteredEvents}
+  //   });
+  // }
 
   return (
     <Box {...props}>
@@ -24,6 +42,11 @@ const EventsToolbar = ({ input, onChange, eventTypeList, ...props }) => {
           }}
         >
         </Box>
+        <RouterLink to="new">
+          <Button color="primary" variant="contained">
+            Novi događaj
+          </Button>
+        </RouterLink>
       </Box>
       <Box sx={{ mt: 3 }}>
         <Card>
@@ -55,10 +78,10 @@ const EventsToolbar = ({ input, onChange, eventTypeList, ...props }) => {
   );
 };
 
-EventsToolbar.propTypes = {
+MyEventsToolbar.propTypes = {
   input: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   eventTypeList: PropTypes.array.isRequired
 };
 
-export default EventsToolbar;
+export default MyEventsToolbar;

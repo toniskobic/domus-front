@@ -28,7 +28,7 @@ const NewAd = () => {
       };
 
       const rsp = await axios.get(
-        'http://***REMOVED***/domus/api/adType',
+        'http://localhost:5000/api/ad-types',
         config
       );
 
@@ -78,9 +78,9 @@ const NewAd = () => {
               data.userId = localStorage.getItem('id');
 
               const response = axios
-                .post('http://***REMOVED***/domus/api/ad', data, config)
+                .post('http://localhost:5000/api/ads', data, config)
                 .then((text) => {
-                  navigate('/app/ads', { replace: true });
+                  navigate('/app/myads', { replace: true });
                 })
                 .catch((error) => {
                   setErrorMsg('Dogodila se greška kod kreiranja oglasa, pokušajte opet.');

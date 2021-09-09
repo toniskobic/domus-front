@@ -25,10 +25,20 @@ const items = [
     title: 'Događaji'
   },
   {
+    href: '/app/myevents',
+    icon: CalendarIcon,
+    title: 'Moji događaji'
+  },
+  {
     href: '/app/ads',
     icon: BookOpenIcon,
     title: 'Oglasi'
   },
+  {
+    href: '/app/myads',
+    icon: BookOpenIcon,
+    title: 'Moji oglasi'
+  }
 ];
 
 // eslint-disable-next-line react/prop-types

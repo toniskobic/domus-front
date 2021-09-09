@@ -5,10 +5,10 @@ import { useEffect, useState, useContext } from 'react';
 import appContext from 'src/store/app_context';
 import axios from 'axios';
 import { Box, Container } from '@material-ui/core';
-import AdsToolbar from 'src/components/ads/AdsToolbar';
-import AdListResults from 'src/components/ads/AdListResults';
+import MyAdsToolbar from 'src/components/myAds/MyAdsToolbar';
+import MyAdListResults from 'src/components/myAds/MyAdListResults';
 
-const Ads = () => {
+const MyAds = () => {
   const { state, dispatchStore } = useContext(appContext);
   const [input, setInput] = useState(0);
   const [adTypeList, setAdTypeList] = useState([]);
@@ -45,7 +45,7 @@ const Ads = () => {
       const fetcheddAds = await rspAds.data;
       const fetchedAdTypes = await rspAdTypes.data;
       const filteredAds = fetcheddAds.filter(
-        (el) => (el.userId !== localStorage.getItem('id'))
+        (el) => (el.userId == localStorage.getItem('id'))
       );
 
       setAdTypeList(fetchedAdTypes);
@@ -76,9 +76,9 @@ const Ads = () => {
         }}
       >
         <Container maxWidth={false}>
-          <AdsToolbar input={input} onChange={updateInput} adTypeList={adTypeList} />
+          <MyAdsToolbar input={input} onChange={updateInput} adTypeList={adTypeList} />
           <Box sx={{ pt: 3 }}>
-            <AdListResults
+            <MyAdListResults
               adList={state.filteredAds}
             />
           </Box>
@@ -88,4 +88,4 @@ const Ads = () => {
   );
 };
 
-export default Ads;
+export default MyAds;

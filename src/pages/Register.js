@@ -25,8 +25,7 @@ const Register = () => {
 
   useEffect(() => {
     const fetchDormitories = async () => {
-      const agent = new https.Agent({ rejectUnauthorized: false });
-      const rsp = await axios.get('http://***REMOVED***/domus/api/dormitory', agent);
+      const rsp = await axios.get('http://localhost:5000/api/dormitories');
       const list = await rsp.data;
       setDormitories(list);
     };
@@ -75,12 +74,9 @@ const Register = () => {
             onSubmit={(
               values, { resetForm }
             ) => {
-              console.log(values);
               const response = axios
-                .post('http://***REMOVED***/domus/api/authenticate/register', values)
+                .post('http://localhost:5000/api/authenticate/register', values)
                 .then((text) => {
-                  console.log(values);
-                  console.log(text.data);
                   navigate('/login', { replace: true });
                 }).catch((error) => {
                   setErrorMsg('Dogodila se greška kod registracije, pokušajte opet.');

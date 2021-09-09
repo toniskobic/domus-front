@@ -3,10 +3,10 @@ import { useEffect, useState, useContext } from 'react';
 import appContext from 'src/store/app_context';
 import axios from 'axios';
 import { Box, Container } from '@material-ui/core';
-import EventsToolbar from 'src/components/events/EventsToolbar';
-import EventListResults from 'src/components/events/EventListResults';
+import MyEventsToolbar from 'src/components/myEvents/MyEventsToolbar';
+import MyEventListResults from 'src/components/myEvents/MyEventListResults';
 
-const Events = (props) => {
+const MyEvents = (props) => {
   const { state, dispatchStore } = useContext(appContext);
   const [input, setInput] = useState(0);
   const [eventTypeList, setEventTypeList] = useState([]);
@@ -45,7 +45,7 @@ const Events = (props) => {
       const filteredEvents = fetchedEvents.filter(
         (el) =>
           (el.dormitoryId == localStorage.getItem('dormitoryId')) &
-          (el.userId !== localStorage.getItem('id'))
+          (el.userId === localStorage.getItem('id'))
       );
 
       setEventTypeList(fetchedEventTypes);
@@ -67,7 +67,7 @@ const Events = (props) => {
   return (
     <>
       <Helmet>
-        <title>Domus | Događaji</title>
+        <title>Domus | Moji događaji</title>
       </Helmet>
       <Box
         sx={{
@@ -77,13 +77,13 @@ const Events = (props) => {
         }}
       >
         <Container maxWidth={false}>
-          <EventsToolbar
+          <MyEventsToolbar
             input={input}
             onChange={updateInput}
             eventTypeList={eventTypeList}
           />
           <Box sx={{ pt: 3 }}>
-            <EventListResults
+            <MyEventListResults
               eventList={state.filteredEvents}
             />
           </Box>
@@ -93,4 +93,4 @@ const Events = (props) => {
   );
 };
 
-export default Events;
+export default MyEvents;

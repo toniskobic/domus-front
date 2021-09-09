@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -14,6 +14,7 @@ import {
   Typography,
   MenuItem
 } from '@material-ui/core';
+import appContext from 'src/store/app_context';
 
 const NewEvent = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const NewEvent = () => {
       };
 
       const rsp = await axios.get(
-        'http://***REMOVED***/domus/api/eventType',
+        'http://localhost:5000/api/event-types',
         config
       );
 
@@ -103,14 +104,15 @@ const NewEvent = () => {
               data.dormitoryId = localStorage.getItem('dormitoryId');
 
               const response = axios
-                .post('http://***REMOVED***/domus/api/event', data, config)
+                .post('http://localhost:5000/api/events', data, config)
                 .then((text) => {
-                  navigate('/app/events', { replace: true });
+                  navigate('/app/myevents', { replace: true });
                 })
                 .catch((error) => {
                   setErrorMsg('Dogodila se greška kod kreiranja događaja, pokušajte opet.');
                   resetForm();
                 });
+
             }}
           >
             {({

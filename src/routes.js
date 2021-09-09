@@ -2,10 +2,14 @@ import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout';
 import MainLayout from 'src/components/MainLayout';
 import Home from 'src/pages/Home';
+import EventDetails from 'src/pages/EventDetails';
 import NewEvent from 'src/pages/NewEvent';
 import Events from 'src/pages/Events';
+import MyEventDetails from 'src/pages/MyEventDetails';
+import MyEvents from 'src/pages/MyEvents';
 import NewAd from 'src/pages/NewAd';
 import Ads from 'src/pages/Ads';
+import MyAds from 'src/pages/MyAds';
 import Login from 'src/pages/Login';
 import NotFound from 'src/pages/NotFound';
 import Register from 'src/pages/Register';
@@ -16,9 +20,13 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: 'events', element: <Events /> },
-      { path: 'events/new', element: <NewEvent /> },
-      { path: 'ads/new', element: <NewAd /> },
+      { path: 'events/:id', element: <EventDetails /> },
+      { path: 'myevents', element: <MyEvents /> },
+      { path: 'myevents/:id', element: <MyEventDetails /> },
+      { path: 'myevents/new', element: <NewEvent /> },
       { path: 'ads', element: <Ads /> },
+      { path: 'myads', element: <MyAds /> },
+      { path: 'myads/new', element: <NewAd /> },
       { path: '404', element: <NotFound /> },
       { path: '/', element: <Navigate to="/app/events" /> },
       { path: '*', element: <Navigate to="/app/404" /> }

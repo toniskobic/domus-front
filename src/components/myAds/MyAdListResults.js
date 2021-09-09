@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import getNestedObject from '../../utils/get_nested_object';
 
-const AdListResults = ({ adList, ...rest }) => (
+const MyAdListResults = ({ adList, ...rest }) => (
   <Card {...rest}>
     <PerfectScrollbar>
       <Box sx={{ minWidth: 1050 }}>
@@ -21,7 +21,6 @@ const AdListResults = ({ adList, ...rest }) => (
           <TableHead>
             <TableRow>
               <TableCell>Naziv</TableCell>
-              <TableCell>Oglašivač</TableCell>
               <TableCell>Tip oglasa</TableCell>
               <TableCell>Opis</TableCell>
             </TableRow>
@@ -35,7 +34,6 @@ const AdListResults = ({ adList, ...rest }) => (
                     ' ' +
                     getNestedObject(ad, ['user', 'lastName'])}
                 </TableCell>
-                <TableCell>{getNestedObject(ad, ['adType', 'name'])}</TableCell>
                 <TableCell>{ad.description}</TableCell>
               </TableRow>
             ))}
@@ -46,8 +44,8 @@ const AdListResults = ({ adList, ...rest }) => (
   </Card>
 );
 
-AdListResults.propTypes = {
+MyAdListResults.propTypes = {
   adList: PropTypes.array.isRequired,
 };
 
-export default AdListResults;
+export default MyAdListResults;

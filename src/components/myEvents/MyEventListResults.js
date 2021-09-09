@@ -1,6 +1,8 @@
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import appContext from 'src/store/app_context';
 import { Link as RouterLink } from 'react-router-dom';
 import {
   Box,
@@ -15,7 +17,7 @@ import {
 import InfoIcon from '@material-ui/icons/Info';
 import getNestedObject from '../../utils/get_nested_object';
 
-const EventListResults = ({ eventList, ...rest }) => {
+const MyEventListResults = ({ eventList, ...rest }) => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -64,8 +66,9 @@ const EventListResults = ({ eventList, ...rest }) => {
   );
 };
 
-EventListResults.propTypes = {
+MyEventListResults.propTypes = {
   eventList: PropTypes.array.isRequired,
+  eventTypeList: PropTypes.array.isRequired
 };
 
-export default EventListResults;
+export default MyEventListResults;
