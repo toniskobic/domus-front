@@ -66,7 +66,7 @@ const MyAds = () => {
   return (
     <>
       <Helmet>
-        <title>Domus | Oglasi</title>
+        <title>Domus | Moji oglasi</title>
       </Helmet>
       <Box
         sx={{

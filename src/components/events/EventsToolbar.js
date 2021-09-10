@@ -12,19 +12,6 @@ const EventsToolbar = ({ input, onChange, eventTypeList, ...props }) => {
 
   return (
     <Box {...props}>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end'
-        }}
-      >
-        <Box
-          sx={{
-            mr: 1
-          }}
-        >
-        </Box>
-      </Box>
       <Box sx={{ mt: 3 }}>
         <Card>
           <CardContent>

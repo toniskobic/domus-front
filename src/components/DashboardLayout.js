@@ -75,6 +75,7 @@ const DashboardLayout = () => {
     localStorage.removeItem('username');
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('role');
     navigate('/home', { replace: true });
   };
 

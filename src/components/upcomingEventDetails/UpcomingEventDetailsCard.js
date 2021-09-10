@@ -1,11 +1,8 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import axios from 'axios';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import getNestedObject from '../../utils/get_nested_object';
 import {
-  Box,
-  Button,
   Card,
   CardContent,
   CardHeader,
@@ -13,58 +10,30 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
-import getNestedObject from '../../utils/get_nested_object';
 
-const MyEventDetailsCard = ({ fetchedEvent, ...rest }) => {
-  const navigate = useNavigate();
-
-  let button = '';
-
+const UpcomingEventDetailsCard = ({ fetchedEvent, ...rest }) => {
   const participants = getNestedObject(fetchedEvent, ['participants']);
 
+  let participant = '';
+
+  let explanation = '';
+
   if (typeof participants !== 'undefined') {
-    const participantsQuantity = participants.filter((p) => p.accepted).length;
-    if(participantsQuantity < fetchedEvent.limit) {
-      button = participants.find(
-        (participant) => participant.userId == localStorage.getItem('id')
-      ) ? (
-        ''
-      ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
-          }}
-        >
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => {
-              const config = {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-              };
-  
-              const values = {
-                userId: localStorage.getItem('id'),
-                eventId: fetchedEvent.id,
-                accepted: 'true',
-                declined: 'false',
-                explanation: ''
-              };
-              const response = axios
-                .post('http://localhost:5000/api/participants', values, config)
-                .then((text) => {
-                  window.location.pathname = 'app/myevents/' + fetchedEvent.id;
-                })
-                .catch((error) => {});
-            }}
-          >
-            Dolazim na događaj
-          </Button>
-        </Box>
+    participant = participants.find(
+      (p) => p.userId == localStorage.getItem('id')
+    );
+    if (participant.explanation !== '') {
+      explanation = (
+        <Grid item container direction="row" spacing={1} md={6} xs={12}>
+          <Grid item>
+            <Typography color="textPrimary" fontWeight="fontWeightBold">
+              Razlog:
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography>{participant.explanation}</Typography>
+          </Grid>
+        </Grid>
       );
     }
   }
@@ -155,12 +124,28 @@ const MyEventDetailsCard = ({ fetchedEvent, ...rest }) => {
               <Typography>{fetchedEvent.description}</Typography>
             </Grid>
           </Grid>
+          <Grid item container direction="row" spacing={1} md={6} xs={12}>
+            <Grid item>
+              <Typography color="textPrimary" fontWeight="fontWeightBold">
+                Status:
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography>
+                {participant.accepted === false
+                  ? participant.declined === false
+                    ? 'U tijeku'
+                    : 'Odbijen'
+                  : 'Prihvaćen'}
+              </Typography>
+            </Grid>
+          </Grid>
+          {explanation}
         </Grid>
       </CardContent>
       <Divider />
-      {button}
     </Card>
   );
 };
 
-export default MyEventDetailsCard;
+export default UpcomingEventDetailsCard;

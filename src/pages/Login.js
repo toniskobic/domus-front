@@ -57,6 +57,7 @@ const Login = () => {
                   localStorage.setItem('username', text.data.username);
                   localStorage.setItem('token', text.data.token);
                   localStorage.setItem('expiration', text.data.expiration);
+                  localStorage.setItem('role', text.data.roles[0]);
                   navigate('/app/events', { replace: true });
                 })
                 .catch((error) => {

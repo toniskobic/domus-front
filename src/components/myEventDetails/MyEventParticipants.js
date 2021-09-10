@@ -31,6 +31,7 @@ const MyEventParticipants = ({ fetchedEvent, ...rest }) => {
   let status = '';
 
   if (typeof participants !== 'undefined') {
+    const participantsQuantity = participants.filter((p) => p.accepted).length;
     data = participants.map((participant) => (
       <TableRow key={participant.userId}>
         <TableCell>
@@ -47,7 +48,7 @@ const MyEventParticipants = ({ fetchedEvent, ...rest }) => {
           }
         </TableCell>
         <TableCell>
-          {status === 'U tijeku' ? (
+          {status === 'U tijeku' & participantsQuantity < fetchedEvent.limit ? (
             <OpenDialogButton
               onOpen={() => {
                 setDialogValue(participant);

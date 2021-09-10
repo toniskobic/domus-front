@@ -1,16 +1,14 @@
-import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
   Box,
-  Button,
   Card,
   CardContent,
   TextField,
   MenuItem
 } from '@material-ui/core';
 
-const MyEventsToolbar = ({ input, onChange, eventTypeList, ...props }) => {
+const UpcomingEventsToolbar = ({ input, onChange, eventTypeList, ...props }) => {
 
   return (
     <Box {...props}>
@@ -20,11 +18,12 @@ const MyEventsToolbar = ({ input, onChange, eventTypeList, ...props }) => {
           justifyContent: 'flex-end'
         }}
       >
-        <RouterLink to="new">
-          <Button color="primary" variant="contained">
-            Novi događaj
-          </Button>
-        </RouterLink>
+        <Box
+          sx={{
+            mr: 1
+          }}
+        >
+        </Box>
       </Box>
       <Box sx={{ mt: 3 }}>
         <Card>
@@ -56,10 +55,10 @@ const MyEventsToolbar = ({ input, onChange, eventTypeList, ...props }) => {
   );
 };
 
-MyEventsToolbar.propTypes = {
+UpcomingEventsToolbar.propTypes = {
   input: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   eventTypeList: PropTypes.array.isRequired
 };
 
-export default MyEventsToolbar;
+export default UpcomingEventsToolbar;

@@ -16,15 +16,55 @@ import {
   Calendar as CalendarIcon,
   BookOpen as BookOpenIcon,
   Book as BookIcon,
-  Clipboard as ClipboardIcon
+  Clipboard as ClipboardIcon,
+  CheckSquare as CheckSquareIcon,
+  User as UserIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
-const items = [
+const admin = [
   {
     href: '/app/events',
     icon: ClipboardIcon,
     title: 'Događaji'
+  },
+  {
+    href: '/app/upcomingevents',
+    icon: CheckSquareIcon,
+    title: 'Nadolazeći događaji'
+  },
+  {
+    href: '/app/myevents',
+    icon: CalendarIcon,
+    title: 'Moji događaji'
+  },
+  {
+    href: '/app/ads',
+    icon: BookOpenIcon,
+    title: 'Oglasi'
+  },
+  {
+    href: '/app/myads',
+    icon: BookIcon,
+    title: 'Moji oglasi'
+  },
+  {
+    href: '/app/admin',
+    icon: UserIcon,
+    title: 'Administrator'
+  }
+];
+
+let items = [
+  {
+    href: '/app/events',
+    icon: ClipboardIcon,
+    title: 'Događaji'
+  },
+  {
+    href: '/app/upcomingevents',
+    icon: CheckSquareIcon,
+    title: 'Nadolazeći događaji'
   },
   {
     href: '/app/myevents',
@@ -44,12 +84,13 @@ const items = [
 ];
 
 // eslint-disable-next-line react/prop-types
-const DashboardSidebar = ({
-  onMobileClose, openMobile, name, username
-}) => {
+const DashboardSidebar = ({ onMobileClose, openMobile, name, username }) => {
   const location = useLocation();
 
   useEffect(() => {
+    if (localStorage.getItem('role') == 'Admin') {
+      items = admin;
+    }
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
@@ -138,7 +179,7 @@ DashboardSidebar.propTypes = {
 };
 
 DashboardSidebar.defaultProps = {
-  onMobileClose: () => { },
+  onMobileClose: () => {},
   openMobile: false
 };
 

@@ -1,24 +1,22 @@
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
-import { useState } from 'react';
 import moment from 'moment';
+import { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
-const EventListResults = ({ eventList, ...rest }) => {
+const UpcomingEventListResults = ({ eventList, ...rest }) => {
   const [pageSize, setPageSize] = useState(5);
 
-  const events = eventList.filter(
-    (e) => e?.participants.filter((p) => p.accepted).length < e.limit
-  );
+  const event = eventList.filter(e => e?.participants?.find(p => p?.userId == localStorage.getItem('id')));
 
-  const rows = events.map((e) => {
+  const rows = event.map((e) => { 
     return {
       ...e,
       eventType: e.eventType.name,
       details: 'Pregledaj',
       dateFrom: moment(e.dateFrom).format('DD/MM/YY HH:mm'),
       dateTo: moment(e.dateTo).format('DD/MM/YY HH:mm'),
-      limit: `${e?.participants?.filter((p) => p.accepted).length}/${e.limit}`
+      limit: `${e?.participants?.filter(p => p.accepted).length}/${e.limit}`
     };
   });
 
@@ -58,7 +56,7 @@ const EventListResults = ({ eventList, ...rest }) => {
         rowsPerPageOptions={[5, 10, 20]}
         onCellClick={(params, event) => {
           if (params.field === 'details') {
-            window.location.pathname = 'app/events/' + params.id;
+            window.location.pathname = 'app/upcomingevents/' + params.id;
           }
         }}
       />
@@ -66,8 +64,8 @@ const EventListResults = ({ eventList, ...rest }) => {
   );
 };
 
-EventListResults.propTypes = {
+UpcomingEventListResults.propTypes = {
   eventList: PropTypes.array.isRequired
 };
 
-export default EventListResults;
+export default UpcomingEventListResults;
