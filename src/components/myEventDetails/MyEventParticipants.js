@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
@@ -6,20 +7,56 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow
+  TableRow,
 } from '@material-ui/core';
+import DialogBox from './DialogBox';
+import OpenDialogButton from './OpenDialogButton';
 import getNestedObject from '../../utils/get_nested_object';
 
 const MyEventParticipants = ({ fetchedEvent, ...rest }) => {
+  const [open, setOpen] = useState(false);
+  const [explanation, setExplanation] = useState('');
+  const [dialogValue, setDialogValue] = useState();
+
+  const handleExplanation = (event) => {
+    setExplanation(event.target.value);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   let data;
-  
   const participants = getNestedObject(fetchedEvent, ['participants']);
+  let status = '';
 
   if (typeof participants !== 'undefined') {
     data = participants.map((participant) => (
       <TableRow key={participant.userId}>
         <TableCell>
           {participant.user.firstName + ' ' + participant.user.lastName}
+        </TableCell>
+        <TableCell>
+          {
+            (status =
+              participant.accepted === false
+                ? participant.declined === false
+                  ? 'U tijeku'
+                  : 'Odbijen'
+                : 'Prihvaćen')
+          }
+        </TableCell>
+        <TableCell>
+          {status === 'U tijeku' ? (
+            <OpenDialogButton
+              onOpen={() => {
+                setDialogValue(participant);
+                setOpen(true);
+              }}
+            />
+          ) : (
+            ''
+          )}
         </TableCell>
       </TableRow>
     ));
@@ -33,14 +70,21 @@ const MyEventParticipants = ({ fetchedEvent, ...rest }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Korisnici</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {data}
-            </TableBody>
+            <TableBody>{data}</TableBody>
           </Table>
         </Box>
       </PerfectScrollbar>
+      <DialogBox
+        open={open}
+        onClose={handleClose}
+        setExplanation={handleExplanation}
+        explanation={explanation}
+        dialogValue={dialogValue}
+      />
     </Card>
   );
 };

@@ -1,7 +1,5 @@
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import appContext from 'src/store/app_context';
-import { useContext } from 'react';
 
 import {
   Box,
@@ -13,20 +11,6 @@ import {
 } from '@material-ui/core';
 
 const MyEventsToolbar = ({ input, onChange, eventTypeList, ...props }) => {
-  // const { state, dispatchStore } = useContext(appContext);
-
-  // const filterEvents = () => {
-  //   const filteredEvents = state.events.filter(
-  //     (el) =>
-  //       (el.dormitoryId == localStorage.getItem('dormitoryId')) &
-  //       (el.userId === localStorage.getItem('id'))
-  //   );
-
-  //   dispatchStore({
-  //     type: 'FILTER_EVENTS',
-  //     payload: {filteredEvents}
-  //   });
-  // }
 
   return (
     <Box {...props}>

@@ -48,14 +48,14 @@ const MyEventDetailsCard = ({ fetchedEvent, ...rest }) => {
             const values = {
               userId: localStorage.getItem('id'),
               eventId: fetchedEvent.id,
-              accepted: 'false',
+              accepted: 'true',
               declined: 'false',
               explanation: ''
             };
             const response = axios
               .post('http://localhost:5000/api/participants', values, config)
               .then((text) => {
-                navigate('/events', { replace: true });
+                navigate('/myevents', { replace: true });
               })
               .catch((error) => {});
           }}

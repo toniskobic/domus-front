@@ -13,9 +13,10 @@ import getNestedObject from '../../utils/get_nested_object';
 const EventParticipants = ({ fetchedEvent, ...rest }) => {
   let data;
   
-  const participants = getNestedObject(fetchedEvent, ['participants']);
+  let participants = getNestedObject(fetchedEvent, ['participants']);
 
   if (typeof participants !== 'undefined') {
+    participants = participants.filter((participant) => participant.accepted == true)
     data = participants.map((participant) => (
       <TableRow key={participant.userId}>
         <TableCell>
@@ -32,7 +33,7 @@ const EventParticipants = ({ fetchedEvent, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Korisnici</TableCell>
+                <TableCell>Sudionici</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

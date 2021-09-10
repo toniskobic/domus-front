@@ -1,68 +1,40 @@
-import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import appContext from 'src/store/app_context';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  Box,
-  Card,
-  Table,
-  TableBody,
-  IconButton,
-  TableCell,
-  TableHead,
-  TableRow
-} from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
-import getNestedObject from '../../utils/get_nested_object';
+import { DataGrid } from '@mui/x-data-grid';
 
 const MyEventListResults = ({ eventList, ...rest }) => {
+  const rows = eventList.map((e) => {
+    return {
+      ...e,
+      eventType: e.eventType.name,
+      details: 'Pregledaj',
+      dateFrom: moment(e.dateFrom).format('DD/MM/YY HH:mm'),
+      dateTo: moment(e.dateTo).format('DD/MM/YY HH:mm'),
+      limit: `${e?.participants?.filter(p => p.accepted).length}/${e.limit}`
+    };
+  });
+
+  const columns = [
+    { field: 'name', headerName: 'Ime', width: 170 },
+    { field: 'eventType', headerName: 'Tip događaja', width: 170 },
+    { field: 'dateFrom', headerName: 'Datum početka', width: 170 },
+    { field: 'dateTo', headerName: 'Datum završetka', width: 170 },
+    { field: 'limit', headerName: 'Broj sudionika', width: 170 },
+    { field: 'description', headerName: 'Opis', width: 170 },
+    { field: 'details', headerName: 'Više', width: 170 }
+  ];
   return (
-    <Card {...rest}>
-      <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Naziv</TableCell>
-                <TableCell>Tip događaja</TableCell>
-                <TableCell>Vrijeme početka</TableCell>
-                <TableCell>Vrijeme završetka</TableCell>
-                <TableCell>Broj sudionika</TableCell>
-                <TableCell>Opis</TableCell>
-                <TableCell />
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {eventList.map((event) => (
-                <TableRow key={event.id}>
-                  <TableCell>{event.name}</TableCell>
-                  <TableCell>
-                    {getNestedObject(event, ['eventType', 'name'])}
-                  </TableCell>
-                  <TableCell>
-                    {moment(event.dateFrom).format('DD/MM/YY HH:mm')}
-                  </TableCell>
-                  <TableCell>
-                    {moment(event.dateTo).format('DD/MM/YY HH:mm')}
-                  </TableCell>
-                  <TableCell>{event.limit}</TableCell>
-                  <TableCell>{event.description}</TableCell>
-                  <TableCell>
-                    <RouterLink to={`${event.id}`} style={{}}>
-                      <IconButton color="inherit">
-                        <InfoIcon />
-                      </IconButton>
-                    </RouterLink>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      </PerfectScrollbar>
-    </Card>
+    <div style={{ height: 300, width: '100%', backgroundColor: 'white' }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        onCellClick={(params, event) => {
+          if (params.field === 'details') {
+            window.location.pathname = 'app/myevents/' + params.id;
+          }
+        }}
+      />
+    </div>
   );
 };
 

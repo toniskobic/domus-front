@@ -15,13 +15,15 @@ import {
 import {
   Calendar as CalendarIcon,
   BookOpen as BookOpenIcon,
+  Book as BookIcon,
+  Clipboard as ClipboardIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
 const items = [
   {
     href: '/app/events',
-    icon: CalendarIcon,
+    icon: ClipboardIcon,
     title: 'Događaji'
   },
   {
@@ -36,7 +38,7 @@ const items = [
   },
   {
     href: '/app/myads',
-    icon: BookOpenIcon,
+    icon: BookIcon,
     title: 'Moji oglasi'
   }
 ];
