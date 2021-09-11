@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-
+import { Link as RouterLink } from 'react-router-dom';
 import { Box, Card, CardContent, Button } from '@material-ui/core';
 
 const OptionsToolbar = ({ ...props }) => {
@@ -15,19 +15,25 @@ const OptionsToolbar = ({ ...props }) => {
               }}
             >
               <Box m={1}>
-                <Button color="primary" variant="contained">
-                  Tipovi događaja
-                </Button>
+                <RouterLink to="eventtypes">
+                  <Button color="primary" variant="contained">
+                    Tipovi događaja
+                  </Button>
+                </RouterLink>
               </Box>
               <Box m={1}>
-                <Button color="primary" variant="contained">
-                  Tipovi oglasa
-                </Button>
+                <RouterLink to="adtypes">
+                  <Button color="primary" variant="contained">
+                    Tipovi oglasa
+                  </Button>
+                </RouterLink>
               </Box>
               <Box m={1}>
-                <Button color="primary" variant="contained">
-                  Korisnici
-                </Button>
+                <RouterLink to="users">
+                  <Button color="primary" variant="contained">
+                    Korisnici
+                  </Button>
+                </RouterLink>
               </Box>
             </Box>
           </CardContent>

@@ -1,9 +1,16 @@
 import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
+import MuiDialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+
+const DialogContent = withStyles(() => ({
+  root: {
+    maxWidth: '400px'
+  },
+}))(MuiDialogContent);
 
 const MyAdDialogBox = (props) => {
   const { onClose, open, description } = props;

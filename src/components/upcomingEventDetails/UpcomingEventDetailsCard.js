@@ -18,6 +18,10 @@ const UpcomingEventDetailsCard = ({ fetchedEvent, ...rest }) => {
 
   let explanation = '';
 
+  let title = 'Događaj';
+
+  if (fetchedEvent.canceled) title = 'Događaj - OTKAZAN';
+
   if (typeof participants !== 'undefined') {
     participant = participants.find(
       (p) => p.userId == localStorage.getItem('id')
@@ -40,7 +44,7 @@ const UpcomingEventDetailsCard = ({ fetchedEvent, ...rest }) => {
 
   return (
     <Card>
-      <CardHeader title="Događaj" />
+      <CardHeader title={title} />
       <Divider />
       <CardContent>
         <Grid container spacing={3}>

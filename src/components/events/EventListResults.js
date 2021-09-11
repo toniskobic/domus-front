@@ -8,7 +8,7 @@ const EventListResults = ({ eventList, ...rest }) => {
   const [pageSize, setPageSize] = useState(5);
 
   const events = eventList.filter(
-    (e) => e?.participants.filter((p) => p.accepted).length < e.limit
+    (e) => e?.participants.filter((p) => p.accepted).length < e.limit && !e.canceled
   );
 
   const rows = events.map((e) => {

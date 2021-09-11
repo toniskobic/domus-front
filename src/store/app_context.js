@@ -6,7 +6,10 @@ const useStore = () => {
     events: [],
     filteredEvents: [],
     ads: [],
-    filteredAds: []
+    filteredAds: [],
+    eventTypes: [],
+    adTypes: [],
+    users: []
   };
 
   function reducer(state, action) {
@@ -19,6 +22,12 @@ const useStore = () => {
         return { ...state, ads: action.payload.ads };
       case 'FILTER_ADS':
         return { ...state, filteredAds: action.payload.filteredAds };
+      case 'CHANGE_EVENT_TYPES':
+        return { ...state, eventTypes: action.payload.eventTypes };
+      case 'CHANGE_AD_TYPES':
+        return { ...state, adTypes: action.payload.adTypes };
+      case 'CHANGE_USERS':
+        return { ...state, users: action.payload.users };
       default:
         throw new Error();
     }

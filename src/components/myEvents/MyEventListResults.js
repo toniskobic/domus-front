@@ -21,7 +21,7 @@ const MyEventListResults = ({ eventList, ...rest }) => {
   const columns = [
     { field: 'name', headerName: 'Ime', width: 170 },
     { field: 'eventType', headerName: 'Tip događaja', width: 170 },
-    { field: 'dateFrom', headerName: 'Datum početka', width: 170 },
+    { field: 'dateFrom', headerName: 'Datum početka', width: 170, },
     { field: 'dateTo', headerName: 'Datum završetka', width: 170 },
     { field: 'limit', headerName: 'Broj sudionika', width: 170 },
     { field: 'description', headerName: 'Opis', width: 170 },

@@ -16,6 +16,9 @@ import Login from 'src/pages/Login';
 import NotFound from 'src/pages/NotFound';
 import Register from 'src/pages/Register';
 import Admin from 'src/pages/Admin';
+import EventTypes from 'src/pages/EventTypes';
+import AdTypes from 'src/pages/AdTypes';
+import Users from 'src/pages/Users'
 
 const routes = [
   {
@@ -33,6 +36,9 @@ const routes = [
       { path: 'myads', element: <MyAds /> },
       { path: 'myads/new', element: <NewAd /> },
       { path: 'admin', element: <Admin />},
+      { path: 'admin/eventtypes', element: <EventTypes /> },
+      { path: 'admin/adtypes', element: <AdTypes /> },
+      { path: 'admin/users', element: <Users /> },
       { path: '404', element: <NotFound /> },
       { path: '/', element: <Navigate to="/app/events" /> },
       { path: '*', element: <Navigate to="/app/404" /> }

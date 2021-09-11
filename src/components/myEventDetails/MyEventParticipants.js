@@ -48,7 +48,7 @@ const MyEventParticipants = ({ fetchedEvent, ...rest }) => {
           }
         </TableCell>
         <TableCell>
-          {status === 'U tijeku' & participantsQuantity < fetchedEvent.limit ? (
+          {status === 'U tijeku' & participantsQuantity < fetchedEvent.limit & !fetchedEvent.canceled ? (
             <OpenDialogButton
               onOpen={() => {
                 setDialogValue(participant);

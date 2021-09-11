@@ -20,58 +20,90 @@ const MyEventDetailsCard = ({ fetchedEvent, ...rest }) => {
 
   let button = '';
 
+  let cancel = '';
+
+  let title = 'Događaj';
+
+  if (fetchedEvent.canceled) title = 'Događaj - OTKAZAN';
+
   const participants = getNestedObject(fetchedEvent, ['participants']);
 
   if (typeof participants !== 'undefined') {
     const participantsQuantity = participants.filter((p) => p.accepted).length;
-    if(participantsQuantity < fetchedEvent.limit) {
+
+    if (fetchedEvent.canceled == false) {
+      cancel = (
+        <Button
+          color="primary"
+          variant="contained"
+          sx={{ mr: 2 }}
+          onClick={() => {
+            const config = {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+              }
+            };
+
+            const values = {
+              canceled: true
+            };
+            const response = axios
+              .patch(
+                `http://localhost:5000/api/events/${fetchedEvent.id}`,
+                values,
+                config
+              )
+              .then((text) => {
+                window.location.pathname = 'app/myevents/' + fetchedEvent.id;
+              })
+              .catch((error) => {});
+          }}
+        >
+          Otkaži događaj
+        </Button>
+      );
+    }
+
+    if (participantsQuantity < fetchedEvent.limit && !fetchedEvent.canceled) {
       button = participants.find(
         (participant) => participant.userId == localStorage.getItem('id')
       ) ? (
         ''
       ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            const config = {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+              }
+            };
+
+            const values = {
+              userId: localStorage.getItem('id'),
+              eventId: fetchedEvent.id,
+              accepted: 'true',
+              declined: 'false',
+              explanation: ''
+            };
+            const response = axios
+              .post('http://localhost:5000/api/participants', values, config)
+              .then((text) => {
+                window.location.pathname = 'app/myevents/' + fetchedEvent.id;
+              })
+              .catch((error) => {});
           }}
         >
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => {
-              const config = {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-              };
-  
-              const values = {
-                userId: localStorage.getItem('id'),
-                eventId: fetchedEvent.id,
-                accepted: 'true',
-                declined: 'false',
-                explanation: ''
-              };
-              const response = axios
-                .post('http://localhost:5000/api/participants', values, config)
-                .then((text) => {
-                  window.location.pathname = 'app/myevents/' + fetchedEvent.id;
-                })
-                .catch((error) => {});
-            }}
-          >
-            Dolazim na događaj
-          </Button>
-        </Box>
+          Dolazim na događaj
+        </Button>
       );
     }
   }
 
   return (
     <Card>
-      <CardHeader title="Događaj" />
+      <CardHeader title={title} />
       <Divider />
       <CardContent>
         <Grid container spacing={3}>
@@ -158,7 +190,16 @@ const MyEventDetailsCard = ({ fetchedEvent, ...rest }) => {
         </Grid>
       </CardContent>
       <Divider />
-      {button}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2
+        }}
+      >
+        {cancel}
+        {button}
+      </Box>
     </Card>
   );
 };
