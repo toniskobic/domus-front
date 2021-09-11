@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { Button } from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
@@ -26,7 +27,7 @@ const MyAdListResults = ({ adList, ...rest }) => {
     {
       field: 'description',
       headerName: 'Opis',
-      width: 500,
+      width: 550,
       renderCell: (params) => (
         <>
             <Button
@@ -41,6 +42,25 @@ const MyAdListResults = ({ adList, ...rest }) => {
             Više
           </Button>
           {params.value}
+        </>
+      )
+    },
+    {
+      field: 'delete',
+      headerName: 'Obriši',
+      width: 200,
+      renderCell: (params) => (
+        <>
+            <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            style={{ marginRight: 16 }}
+            onClick={(params, event) => {
+            }}
+          >
+            Obriši
+          </Button>
         </>
       )
     } 
@@ -59,6 +79,25 @@ const MyAdListResults = ({ adList, ...rest }) => {
             if (params.field === 'description') {
               setOpen(true);
               setDescription(params.row.description);
+            }
+            if (params.field === 'delete') {
+              const config = {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              };
+  
+              const response = axios
+                .delete(
+                  `http://localhost:5000/api/ads/${params.row.id}`,
+                  config
+                )
+                .then((text) => {
+                  window.location.reload(true);
+                })
+                .catch((error) => {
+                  window.location.reload(true);
+                });
             }
           }}
         />
