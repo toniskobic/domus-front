@@ -29,6 +29,20 @@ const OptionsToolbar = ({ ...props }) => {
                 </RouterLink>
               </Box>
               <Box m={1}>
+                <RouterLink to="dormitories">
+                  <Button color="primary" variant="contained">
+                    Studentski domovi
+                  </Button>
+                </RouterLink>
+              </Box>
+              <Box m={1}>
+                <RouterLink to="cities">
+                  <Button color="primary" variant="contained">
+                    Gradovi
+                  </Button>
+                </RouterLink>
+              </Box>
+              <Box m={1}>
                 <RouterLink to="users">
                   <Button color="primary" variant="contained">
                     Korisnici

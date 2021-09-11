@@ -78,22 +78,6 @@ const Login = () => {
               values
             }) => (
               <form onSubmit={handleSubmit}>
-                <Typography color="textPrimary" variant="h4">
-                  Administrator:
-                </Typography>
-                <Typography color="textSecondary" variant="h4">
-                  korisničko ime: ***REMOVED***
-                  <br />
-                  lozinka: ***REMOVED***
-                </Typography>
-                <Typography color="textPrimary" variant="h4">
-                  Korisnik:
-                </Typography>
-                <Typography color="textSecondary" variant="h4">
-                  korisničko ime: ***REMOVED***
-                  <br />
-                  lozinka: ***REMOVED***
-                </Typography>
                 <Box sx={{ mb: 3 }}>
                   {errorMsg ? (
                     <Typography color="red" gutterBottom variant="h4">

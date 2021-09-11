@@ -9,6 +9,8 @@ const useStore = () => {
     filteredAds: [],
     eventTypes: [],
     adTypes: [],
+    dormitories: [],
+    cities: [],
     users: []
   };
 
@@ -26,10 +28,14 @@ const useStore = () => {
         return { ...state, eventTypes: action.payload.eventTypes };
       case 'CHANGE_AD_TYPES':
         return { ...state, adTypes: action.payload.adTypes };
+      case 'CHANGE_DORMITORIES':
+        return { ...state, dormitories: action.payload.dormitories };
+      case 'CHANGE_CITIES':
+        return { ...state, cities: action.payload.cities };
       case 'CHANGE_USERS':
         return { ...state, users: action.payload.users };
       default:
-        throw new Error();
+        throw new Error(`Action ${action.type} does not exist!`);
     }
   }
 
