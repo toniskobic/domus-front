@@ -54,6 +54,7 @@ const Register = () => {
               lastname: '',
               username: '',
               password: '',
+              confirmPassword: '',
               DormitoryID: ''
             }}
             validationSchema={Yup.object().shape({
@@ -64,6 +65,10 @@ const Register = () => {
               firstname: Yup.string().max(255).required('Ime nije uneseno'),
               lastname: Yup.string().max(255).required('Prezime nije uneseno'),
               password: Yup.string().max(255).required('Lozinka nije unesena'),
+              confirmPassword: Yup.string().oneOf(
+                [Yup.ref('password'), null],
+                'Lozinke se ne podudaraju'
+              ),
               username: Yup.string()
                 .max(255)
                 .required('Korisničko ime nije uneseno'),
@@ -71,15 +76,20 @@ const Register = () => {
                 .max(255)
                 .required('Studentski dom nije odabran')
             })}
-            onSubmit={(
-              values, { resetForm }
-            ) => {
+            onSubmit={(values, { resetForm }) => {
+              let confirmPassword;
+              let data;
+              ({ confirmPassword, ...data } = values);
+
               const response = axios
-                .post('http://localhost:5000/api/authenticate/register', values)
+                .post('http://localhost:5000/api/authenticate/register', data)
                 .then((text) => {
                   navigate('/login', { replace: true });
-                }).catch((error) => {
-                  setErrorMsg('Dogodila se greška kod registracije, pokušajte opet.');
+                })
+                .catch((error) => {
+                  setErrorMsg(
+                    'Dogodila se greška kod registracije, pokušajte opet.'
+                  );
                   resetForm();
                 });
             }}
@@ -95,7 +105,11 @@ const Register = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
-                  { errorMsg ? <Typography color="red" gutterBottom variant="h4">{errorMsg}</Typography> : null}
+                  {errorMsg ? (
+                    <Typography color="red" gutterBottom variant="h4">
+                      {errorMsg}
+                    </Typography>
+                  ) : null}
                   <Typography color="textPrimary" variant="h2">
                     Registracija
                   </Typography>
@@ -188,6 +202,21 @@ const Register = () => {
                   value={values.password}
                   variant="outlined"
                 />
+                <TextField
+                  error={Boolean(
+                    touched.confirmPassword && errors.confirmPassword
+                  )}
+                  fullWidth
+                  helperText={touched.confirmPassword && errors.confirmPassword}
+                  label="Ponovi lozinku"
+                  margin="normal"
+                  name="confirmPassword"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="password"
+                  value={values.confirmPassword}
+                  variant="outlined"
+                />
                 <Box sx={{ py: 2 }}>
                   <Button
                     color="primary"
@@ -201,8 +230,7 @@ const Register = () => {
                   </Button>
                 </Box>
                 <Typography color="textSecondary" variant="body1">
-                  Već imaš račun?
-                  {' '}
+                  Već imaš račun?{' '}
                   <Link component={RouterLink} to="/login" variant="h6">
                     Prijavi se
                   </Link>

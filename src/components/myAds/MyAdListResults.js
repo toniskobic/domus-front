@@ -8,7 +8,7 @@ import MyAdDialogBox from './MyAdDialogBox';
 const MyAdListResults = ({ adList, ...rest }) => {
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
-  const [description, setDescription] = useState('f');
+  const [description, setDescription] = useState('');
 
   const handleClose = () => {
     setOpen(false);
