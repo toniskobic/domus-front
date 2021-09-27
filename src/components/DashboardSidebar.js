@@ -3,9 +3,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  // Avatar,
   Box,
-  // Button,
   Divider,
   Drawer,
   Hidden,
@@ -55,7 +53,7 @@ const admin = [
   }
 ];
 
-let items = [
+let user = [
   {
     href: '/app/events',
     icon: ClipboardIcon,
@@ -83,6 +81,8 @@ let items = [
   }
 ];
 
+let items = [];
+
 // eslint-disable-next-line react/prop-types
 const DashboardSidebar = ({ onMobileClose, openMobile, name, username }) => {
   const location = useLocation();
@@ -90,6 +90,9 @@ const DashboardSidebar = ({ onMobileClose, openMobile, name, username }) => {
   useEffect(() => {
     if (localStorage.getItem('role') == 'Admin') {
       items = admin;
+    }
+    else {
+      items = user;
     }
     if (openMobile && onMobileClose) {
       onMobileClose();
