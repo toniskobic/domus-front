@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { createContext, useReducer } from 'react';
 
 const useStore = () => {

@@ -29,43 +29,7 @@ const Admin = (props) => {
     if(localStorage.getItem('role') !== 'Admin') {
       navigate('/events', { replace: true });
     }
-    const fetchEvents = async () => {
-      const config = {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      };
-
-      const rspEvents = await axios.get(
-        'http://localhost:5000/api/events',
-        config
-      );
-
-      const rspEventTypes = await axios.get(
-        'http://localhost:5000/api/event-types',
-        config
-      );
-
-      const fetchedEvents = await rspEvents.data;
-      const fetchedEventTypes = await rspEventTypes.data;
-      const filteredEvents = fetchedEvents.filter(
-        (el) =>
-          (el.dormitoryId == localStorage.getItem('dormitoryId')) &
-          (el.userId !== localStorage.getItem('id'))
-      );
-
-      setEventTypeList(fetchedEventTypes);
-
-      dispatchStore({
-        type: 'CHANGE_EVENTS',
-        payload: {events: filteredEvents}
-      });
-      
-      dispatchStore({
-        type: 'FILTER_EVENTS',
-        payload: {filteredEvents: filteredEvents}
-      });
-
-    };
-    fetchEvents();
+    
   }, []);
 
   return (

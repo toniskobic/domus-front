@@ -62,8 +62,7 @@ const MyEventListResults = ({ eventList, ...rest }) => {
 };
 
 MyEventListResults.propTypes = {
-  eventList: PropTypes.array.isRequired,
-  eventTypeList: PropTypes.array.isRequired
+  eventList: PropTypes.array.isRequired
 };
 
 export default MyEventListResults;

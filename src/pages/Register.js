@@ -43,7 +43,10 @@ const Register = () => {
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          ['@media (-webkit-device-pixel-ratio: 1.25)']: { // eslint-disable-line no-useless-computed-key
+            zoom: '0.8'
+          },
         }}
       >
         <Container maxWidth="sm">
