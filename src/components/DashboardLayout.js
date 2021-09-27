@@ -70,6 +70,8 @@ const DashboardLayout = () => {
   const logout = () => {
     setUsername('');
     setName('');
+    localStorage.removeItem('id');
+    localStorage.removeItem('dormitoryId');
     localStorage.removeItem('firstname');
     localStorage.removeItem('lastname');
     localStorage.removeItem('username');
