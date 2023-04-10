@@ -1,6 +1,8 @@
-# Domus
+# Domus - React app
 
 Domus is a React and ASP.NET Core application for organizing social events in student dormitories. React application was bootstrapped with [Devias Kit - React Admin Dashboard](https://github.com/devias-io/material-kit-react) template. React app and ASP.NET Core web API are in seperated repositories. This repo contains the React app.
+
+This app was made as part of the undergraduate thesis (T. Škobić, "Web application development using UI frameworks", Undergraduate thesis, University of Zagreb, Faculty of Organization and Informatics, Varaždin, 2021., Available at: [https://urn.nsk.hr/urn:nbn:hr:211:415884](https://urn.nsk.hr/urn:nbn:hr:211:415884)).
 
 The implemented functionalities of the application are:
 - user authentication and authorization
