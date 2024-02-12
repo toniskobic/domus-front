@@ -39,6 +39,6 @@ The build is minified and the filenames include the hashes.<br>
 
 Your app is ready to be deployed.
 
-![Upcoming Events](https://github.com/tskobic/domus-front/blob/main/upcoming_events.png)
+![Upcoming Events](https://github.com/toniskobic/domus-front/blob/main/upcoming_events.png)
 
 
